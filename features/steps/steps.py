@@ -8,13 +8,11 @@ def step_impl(context, url):
     context.browser.get(url)
 
 
-@Then('Находим поле для ввода информации')
-def step_impl(context):
-    search_field = context.browser.find_element_by_xpath('//input[@id=\'search\']')
-    if search_field:
-        context.search_field = search_field
-
-
 @step('Вводим в поле для ввода информации "{word}"')
 def step_impl(context, word):
-    context.search_field.send_keys(word, Keys.ENTER)
+    context.browser.find_element_by_xpath('//input[@id=\'search\']').send_keys(word)
+
+
+@step('Нажимаем кнопку поиска')
+def step_impl(context):
+    context.browser.find_element_by_xpath('//button[@id="search-icon-legacy"]').click()

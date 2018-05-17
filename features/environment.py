@@ -4,11 +4,13 @@ from selenium.webdriver.chrome.options import Options
 
 
 def before_all(context):
-    chrome_path = getcwd() + '/chromedriver'
-    options = Options()
+    # chrome_path = getcwd() + '/chromedriver'
+    options = webdriver.ChromeOptions()
+    options.add_argument("--no-sandbox")
     options.add_argument("--start-maximized")
-    context.browser = webdriver.Chrome(executable_path=chrome_path, chrome_options=options)
+    context.browser = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver", chrome_options=options)
 
 
 def after_all(context):
+    context.browser.close()
     context.browser.quit()

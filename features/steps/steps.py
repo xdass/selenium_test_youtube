@@ -33,22 +33,20 @@ def step_impl(context):
 
 @Then('Переходим по ссылке на первое видео')
 def step_impl(context):
-    element_xpath = "//div[@id='primary']//div[@id='contents' and contains(@class, 'ytd-item-section-renderer')]/*[1]"
+    #element_xpath = "//div[@id='primary']//div[@id='contents' and contains(@class, 'ytd-item-section-renderer')]/*[1]"
     element = WebDriverWait(context.browser, 15).until(
-        EC.presence_of_element_located((By.XPATH, element_xpath))
+        EC.presence_of_element_located((By.CSS_SELECTOR, "#contents a > h3:first-child"))
     )
-    print(element)
     element.click()
 
 
 @Then('Извлекаем описание видео')
 def step_impl(context):
     element_xpath = "//div[@id='content']//yt-formatted-string[@id='description' and contains(@class, 'ytd-video-secondary-info-renderer')]"
-    element = WebDriverWait(context.browser, 20).until(
-        EC.presence_of_element_located((By.XPATH, element_xpath))
+    element = WebDriverWait(context.browser, 15).until(
+        EC.visibility_of_element_located((By.CSS_SELECTOR, "#content > #description"))
     )
-    context.video_description = element.text
-    print(context.video_description)
+    context.video_description = element.get_attribute("innerText")
 
 
 @step('Сохраняем описание видео в файл')

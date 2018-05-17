@@ -8,7 +8,7 @@ def before_all(context):
     options = webdriver.ChromeOptions()
     options.add_argument("--no-sandbox")
     options.add_argument("--start-maximized")
-    context.browser = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver", chrome_options=options)
+    context.browser = webdriver.Chrome(chrome_options=options)
 
 
 def after_all(context):
